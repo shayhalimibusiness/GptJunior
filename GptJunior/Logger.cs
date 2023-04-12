@@ -2,7 +2,7 @@ namespace GptJunior;
 
 public interface ILogger
 {
-    void Log(string massage, ELogType logType);
+    void Log(string massage, ELogType logType = ELogType.Normal);
     void CleanLog();
 }
 

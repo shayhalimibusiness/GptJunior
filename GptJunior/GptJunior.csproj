@@ -8,4 +8,8 @@
         <RootNamespace>GptJunior</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="OpenAI-DotNet" Version="6.7.0" />
+    </ItemGroup>
+
 </Project>
