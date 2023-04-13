@@ -90,19 +90,18 @@ public class LoggingGptProxy : BaseReqGptProxy
     }
 }
 
-public static class GptBotsFactory
+public static class GptProxiesFactory
 {
     #region General
 
     private const string EndOfIntroduction = "\n------\n";
-
-    public const string EndOfSection = "\n******\n";
-
+    private const string EndOfIntroductionSection = "\n******\n";
     private const string EndOfRequest = "\n######\n";
+    private const string EndOfConversationSection = "\n>>>>>\n";
 
     private const string Introduction =
         "This is not the request itself but instructions on what requests to aspect, and how to answer requests.\n" +
-        "Between Instructions' different sections there will be this line:" + EndOfSection +
+        "Between Instructions' different sections there will be this line:" + EndOfIntroductionSection +
         "In the end of all of the instructions there will be this line:" + EndOfIntroduction;
 
     #endregion
@@ -111,21 +110,21 @@ public static class GptBotsFactory
 
     private const string CoderRequestFormat =
         "Request Format: A description of a function.\n" +
-        EndOfSection;
+        EndOfIntroductionSection;
 
     private const string CoderAnswerFormat =
         "Answer Format: A function in C# that runs from Program.cs, " +
         "so it shouldn't have an accessibility token like 'public'.\n" +
         "The answer must be only the code!\n" +
         "No human text!" +
-        EndOfSection;
+        EndOfIntroductionSection;
 
     #endregion
     
     #region Fixer
 
     private const string FixerRequestFormat = 
-        "The User will supply you with sections seperated by lines: " + EndOfSection +
+        "The User will supply you with sections seperated by lines: " + EndOfIntroductionSection +
         "In the end of the request there will be a different line: " + EndOfRequest +
         "First Section: The content of Program.cs a file inside PlayGround c# console project.\n" +
         "This is the only file with actual code and it is the entry point of the project.\n" +
@@ -133,14 +132,14 @@ public static class GptBotsFactory
         "If you see, multiple " + EndOfRequest + 
         "It means that it is the history of previous requests and your fix attempts.\n" +
         "Learn from it!!!" +
-        EndOfSection;
+        EndOfIntroductionSection;
 
     private const string FixerAnswerFormat = 
         "Your answer will be Program.cs in its fixed version.\n" +
         "Don't supply anything except for the code.\n" +
         "If you think that according to the feedback you got the code works fine, send the word: PASS\n" +
         "Exactly in this syntax.\n" +
-        EndOfSection;
+        EndOfIntroductionSection;
     
     private const string GoodBuildExample = 
         "This is an example of a good build (so you should return PASS):" +
@@ -154,6 +153,90 @@ public static class GptBotsFactory
                                            "All projects are up-to-date for restore.\n" +
                                            "C:\\Users\\shay.halimi\\Desktop\\DlHellGpt\\DlHellGpt\\PlayGround\\Program.cs(40,1): " +
                                            "error CS0106: The modifier 'public' is not valid for this item [C:\\Users\\shay.halimi\\Desktop\\DlHellGpt\\DlHellGpt\\PlayGround\\PlayGround.csproj]\n\nBuild FAILED.\n\nC:\\Users\\shay.halimi\\Desktop\\DlHellGpt\\DlHellGpt\\PlayGround\\Program.cs(40,1): error CS0106: The modifier 'public' is not valid for this item [C:\\Users\\shay.halimi\\Desktop\\DlHellGpt\\DlHellGpt\\PlayGround\\PlayGround.csproj]\n    0 Warning(s)\n    1 Error(s)\n\nTime Elapsed 00:00:00.95";
+
+    #endregion
+
+    #region FunctionDeveloper
+
+    private const string FunctionDeveloperRequestFormat = 
+        "Expected request format:\n" +
+        "A description of a function." +
+        EndOfIntroductionSection;
+    private const string FunctionDeveloperAnswerFormat = 
+        "Expected answer format:\n" +
+        " - Function name.\n" +
+        " - This line:" + EndOfConversationSection + 
+        " - Function implementation.\n" +
+        " - This line:" + EndOfConversationSection +
+        " - Function flow: A use of this function with the appropriate arguments. Print the result.\n" +
+        " - This line:" + EndOfConversationSection +
+        " - The expected return result from the flow." +
+        " - This line:" + EndOfConversationSection +
+        EndOfIntroductionSection;
+    private const string FunctionDeveloperRequestExample = 
+        "Request Example:\n" +
+        "function that returns a number plus 2" +
+        EndOfIntroductionSection;
+    private const string FunctionDeveloperAnswerExample = 
+        "Expected Answer:\n" +
+        "AddTwo" +
+        EndOfConversationSection +
+        "public int AddTwo(int num)\n{\n   return num + 2;\n}" +
+        EndOfConversationSection +
+        "int result = AddTwo(5);\nConsole.WriteLine(result);" +
+        EndOfConversationSection +
+        "7" +
+        EndOfConversationSection +
+        EndOfIntroductionSection;
+    private const string FunctionDeveloperNotes = 
+        "The language is C#." +
+        EndOfIntroductionSection;
+
+    #endregion
+
+    #region FunctionFixer
+
+    private const string FunctionFixerRequestFormat = 
+        "Expected request format:\n" +
+        " - Function name.\n" +
+        " - This line:" + EndOfConversationSection + 
+        " - Function description.\n" +
+        " - This line:" + EndOfConversationSection +
+        " - A class file content with the function implementation.\n" +
+        " - This line:" + EndOfConversationSection +
+        " - A Program.cs file content with this function use.\n" +
+        " - This line:" + EndOfConversationSection +
+        " - build_log.txt of building the project with:\n" +
+        "   dotnet build -o ./output PlayGround.csproj > ./output/build_log.txt 2>&1\n" +
+        "   The only cs files in the project are Program and the class file." +
+        " - This line:" + EndOfConversationSection +
+        " - run_log.txt of running the project with:\n" +
+        @"   output\PlayGround.exe > ./output/run_log.txt 2>&1\n" +
+        EndOfIntroductionSection;
+    private const string FunctionFixerNotes = 
+        "Base on this information you will have to figure out if the project was " +
+        "build correctly and the function behaved as expected.\n" +
+        "If not figure out what is the problem and how to fix it.\n" +
+        EndOfIntroductionSection;
+    private const string FunctionFixerAnswerFormat = 
+        "Expected answer format:\n" +
+        " - Does the project works? if so, answer with: PASS!, otherwise: FAILED!.\n" +
+        "   If you answered PASS! finish your answer here, if answered FAILED!, continue:\n" +
+        " - This line:" + EndOfConversationSection + 
+        " - New Program.cs content. This should still include the flow, but if there was a bug there, fix it.\n" +
+        " - This line:" + EndOfConversationSection +
+        " - New class file content. This should still include the function, but if there was a bug there" +
+        "or a implementation issue, fix it (the function still needs to match its description).\n" +
+        " - This line:" + EndOfConversationSection +
+        EndOfIntroductionSection;
+    // private const string FunctionFixerRequestExample = 
+    //     "Request Example:\n" +
+    //     "function that returns a number plus 2" +
+    //     EndOfIntroductionSection;
+    // private const string FunctionFixerAnswerExample = 
+    //     "Expected Answer:\n" +
+    //     "public int AddTwo(int num)\n{\n   return num + 2;\n}" +
+    //     EndOfIntroductionSection;
 
     #endregion
 
@@ -243,5 +326,37 @@ public static class GptBotsFactory
         var gptLogger = LoggersFactory.CreateConversationLogger("CodeGpt");
 
         return new LoggingGptProxy(baseRequest, gptLogger);
+    }
+
+    public static IGptProxy CreateGptFunctionDeveloper()
+    {
+        const string baseRequest = Introduction +
+                                   FunctionDeveloperRequestFormat +
+                                   FunctionDeveloperAnswerFormat +
+                                   FunctionDeveloperRequestExample +
+                                   FunctionDeveloperAnswerExample +
+                                   FunctionDeveloperNotes +
+                                   EndOfIntroduction;
+        
+        var logger = LoggersFactory.CreateConversationLogger("GptFunctionDeveloper");
+
+        var gptFunctionDeveloper = new LoggingGptProxy(baseRequest, logger);
+
+        return gptFunctionDeveloper;
+    }
+    
+    public static IGptProxy CreateGptFunctionFixer()
+    {
+        const string baseRequest = Introduction +
+                                   FunctionFixerRequestFormat +
+                                   FunctionFixerNotes +
+                                   FunctionFixerAnswerFormat +
+                                   EndOfIntroduction;
+        
+        var logger = LoggersFactory.CreateConversationLogger("GptFunctionDeveloper");
+
+        var gptFunctionDeveloper = new LoggingGptProxy(baseRequest, logger);
+
+        return gptFunctionDeveloper;
     }
 }
