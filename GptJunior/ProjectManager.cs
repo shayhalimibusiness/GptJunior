@@ -15,16 +15,16 @@ public class ProjectManager : IProjectManager
     private const string BuildTitle = "Build:\n";
     private const string RunTitle = "Run:\n";
 
-    private ProgramManager _programManager;
-    private CreateClassManager _createClassManager;
-    private IScriptRunner _runProjectScriptRunner;
-    private IFeedbackViewer _feedbackViewer;
+    private readonly IProgramManager _programManager;
+    private readonly CreateClassManager _createClassManager;
+    private readonly IScriptRunner _runProjectScriptRunner;
+    private readonly IFeedbackViewer _feedbackViewer;
     
-    private Dictionary<string, IClassManager> _classManagers;
+    private readonly Dictionary<string, IClassManager> _classManagers;
 
 
     public ProjectManager(
-        ProgramManager programManager, 
+        IProgramManager programManager, 
         CreateClassManager createClassManager, 
         IScriptRunner runProjectScriptRunner, 
         IFeedbackViewer feedbackViewer)
@@ -67,5 +67,24 @@ public class ProjectManager : IProjectManager
     public IProgramManager GetProgram()
     {
         return _programManager;
+    }
+}
+
+public static class ProjectManagersFactory
+{
+    public static IProjectManager CreateProjectManager()
+    {
+        var programManager = ProgramManagersFactory.CreateProgramManagersFactory();
+        CreateClassManager createClassManager = ClassManagersFactory.CreateClassManager;
+        var runProjectScriptRunner = ScriptRunnerFactory.CreateRunProjectScriptRunner();
+        var feedbackViewer = FeedbackViewersFactory.CreateProjectFeedbackViewer();
+        
+        var projectManager = new ProjectManager(
+            programManager,
+            createClassManager,
+            runProjectScriptRunner,
+            feedbackViewer);
+
+        return projectManager;
     }
 }

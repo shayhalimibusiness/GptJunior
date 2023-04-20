@@ -16,9 +16,9 @@ public class ClassManager : IClassManager
     private const int FuncBaseLine = 7;
     private const string Indentation = "        ";
 
-    private string _className;
-    private string _namespaceName;
-    private IFileEditor _fileEditor;
+    private readonly string _className;
+    private readonly string _namespaceName;
+    private readonly IFileEditor _fileEditor;
 
     private string _classCode;
     private int _memNum;

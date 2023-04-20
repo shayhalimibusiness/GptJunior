@@ -1,6 +1,9 @@
 using OpenAI;
 using OpenAI.Chat;
 using OpenAI.Models;
+using OpenAILib;
+using OpenAIClient = OpenAI.OpenAIClient;
+using OpenAILibClient = OpenAILib.OpenAIClient;
 
 namespace GptJunior;
 
@@ -87,6 +90,29 @@ public class LoggingGptProxy : BaseReqGptProxy
         Logger.Log(response, ELogType.ConversationBot);
         
         return response;
+    }
+}
+
+public class NewNugetGptProxy : IGptProxy
+{
+    private readonly OpenAILibClient _aiClient;
+
+    public NewNugetGptProxy()
+    {
+        _aiClient = new OpenAILibClient(
+            "org-0urPpvWLMicgECfNsGbgSNBU",
+            "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");
+    }
+
+    public async Task<string> GetResponse(string massage)
+    {
+        var result = await _aiClient.GetCompletionAsync(massage);
+        return result;
+    }
+
+    public void AddToBaseRequest(string addition)
+    {
+        throw new NotImplementedException();
     }
 }
 

@@ -9,7 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="OpenAI-DotNet" Version="6.7.0" />
+      <PackageReference Include="OpenAI-DotNet" Version="6.6.0" />
+      <PackageReference Include="OpenAILib" Version="2.0.0" />
     </ItemGroup>
 
 </Project>
