@@ -20,8 +20,8 @@ public class GptJunior : IGptJunior
     {
         var response = await _gptDeveloper.Develop(description);
         
-        var functionName = response.FunctionName;
-        var functionImplementation = response.FunctionImplementation;
+        string functionName = response.FunctionName[0];
+        List<string> functionImplementation = response.FunctionImplementation;
         var flow = response.Flow;
         var expectedResult = response.ExpectedResult;
 

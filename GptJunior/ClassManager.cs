@@ -6,7 +6,7 @@ public interface IClassManager
 {
     void CreateFile();
     void AddMember(string member);
-    void AddFunction(string function);
+    void AddFunction(List<string> function);
     void Clean();
 }
 
@@ -49,12 +49,11 @@ public class ClassManager : IClassManager
         _memNum++;
     }
 
-    public void AddFunction(string function)
+    public void AddFunction(List<string> function)
     {
-        var lines = function.Split("\n").ToList();
-        lines = lines.Select(line => Indentation + line).ToList();
-        _fileEditor.WriteLines(FuncBaseLine + _funcLines, lines);
-        _funcLines += lines.Count + 1;
+        function = function.Select(line => Indentation + line).ToList();
+        _fileEditor.WriteLines(FuncBaseLine + _funcLines, function);
+        _funcLines += function.Count + 1;
     }
 
     public void Clean()

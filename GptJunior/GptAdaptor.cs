@@ -16,7 +16,7 @@ public class GptAdaptor : IGptAdaptor
         
         foreach (var line in lines)
         {
-            if (line.Contains("---"))
+            if (line.Contains(">>>"))
             {
                 sections.Add(section);
                 section = new List<string>();

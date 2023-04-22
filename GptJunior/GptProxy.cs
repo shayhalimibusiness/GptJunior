@@ -200,11 +200,11 @@ public static class GptProxiesFactory
         " - This line:" + EndOfConversationSection +
         EndOfIntroductionSection;
     private const string FunctionDeveloperRequestExample = 
-        "Request Example:\n" +
+        "This is an example to a request that I could give you:\n" +
         "function that returns a number plus 2" +
         EndOfIntroductionSection;
     private const string FunctionDeveloperAnswerExample = 
-        "Expected Answer:\n" +
+        "This is the answer I expect from you based on the request example:\n" +
         "AddTwo" +
         EndOfConversationSection +
         "public int AddTwo(int num)\n{\n   return num + 2;\n}" +
@@ -215,7 +215,10 @@ public static class GptProxiesFactory
         EndOfConversationSection +
         EndOfIntroductionSection;
     private const string FunctionDeveloperNotes = 
-        "The language is C#." +
+        "Of course you don't give that answer on every request. this is only an example on what you should have answered" +
+        "if I gave you a request like in the example." +
+        "The language is C#.\n" +
+        "Remember to give only! only! the content of the expected answer and nothing else!" +
         EndOfIntroductionSection;
 
     #endregion
