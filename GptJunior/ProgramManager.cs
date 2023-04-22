@@ -4,6 +4,7 @@ namespace GptJunior;
 
 public interface IProgramManager
 {
+    string Read();
     void AddFlow(List<string> flow);
     void Save();
     void Clean();
@@ -14,7 +15,7 @@ public class OldProgramManager : IProgramManager
     private const int FlowBaseLine = 4;
     
     private readonly string _namespaceName;
-    private IFileEditor _fileEditor;
+    private readonly IFileEditor _fileEditor;
 
     private string _programCode;
     private int _codeLinesNum;
@@ -26,6 +27,11 @@ public class OldProgramManager : IProgramManager
 
         _programCode = GetProgramBaseCode();
         _codeLinesNum = 0;
+    }
+
+    public string Read()
+    {
+        return _fileEditor.ReadFile();
     }
 
     public void AddFlow(List<string> flow)
@@ -66,7 +72,7 @@ public class ProgramManager : IProgramManager
     private const int FlowBaseLine = 4;
     
     private readonly string _namespaceName;
-    private IFileEditor _fileEditor;
+    private readonly IFileEditor _fileEditor;
 
     private string _programCode;
     private int _codeLinesNum;
@@ -78,6 +84,11 @@ public class ProgramManager : IProgramManager
 
         _programCode = GetProgramBaseCode();
         _codeLinesNum = 0;
+    }
+
+    public string Read()
+    {
+        return _fileEditor.ReadFile();
     }
 
     public void AddFlow(List<string> flow)

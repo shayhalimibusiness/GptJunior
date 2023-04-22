@@ -22,6 +22,15 @@ public class GptAdaptor : IGptAdaptor
                 section = new List<string>();
                 continue;
             }
+
+            if (line.Contains("PASS!"))
+            {
+                section = new List<string> { "PASS!" };
+                sections.Add(section);
+                sections.Add(new List<string>());
+                sections.Add(new List<string>());
+                return sections;
+            }
             
             section.Add(line);
         }

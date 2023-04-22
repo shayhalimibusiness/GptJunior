@@ -12,6 +12,9 @@ public delegate IClassManager CreateClassManager(string className);
 public class ProjectManager : IProjectManager
 {
     private const string SectionLine = "\n*******************************************\n";
+    private const string FunctionNameTitle = "Function name:\n";
+    private const string ClassTitle = "Class file:\n";
+    private const string ProgramTitle = "Program.cs:\n";
     private const string BuildTitle = "Build:\n";
     private const string RunTitle = "Run:\n";
 
@@ -41,7 +44,21 @@ public class ProjectManager : IProjectManager
     {
         _runProjectScriptRunner.Run();
 
+        // Todo: this works only if there is a single class need to work for multiple classes.
+        var classCs = _classManagers.ToList()[0].Value.Read();
+        var functionName = _classManagers.ToList()[0].Key.Split("Class")[0];
+        var programCs = _programManager.Read();
+
         var feedback =
+            SectionLine +
+            FunctionNameTitle +
+            functionName +
+            SectionLine +
+            ClassTitle +
+            classCs +
+            SectionLine +
+            ProgramTitle +
+            programCs +
             SectionLine +
             BuildTitle +
             _feedbackViewer.GetBuildLog() +

@@ -1,7 +1,5 @@
-using OpenAI;
 using OpenAI.Chat;
 using OpenAI.Models;
-using OpenAILib;
 using OpenAIClient = OpenAI.OpenAIClient;
 using OpenAILibClient = OpenAILib.OpenAIClient;
 
@@ -15,10 +13,11 @@ public interface IGptProxy
 
 public class GptProxy : IGptProxy
 {
-    private OpenAIClient _api;
+    private readonly OpenAIClient _api;
     
     public GptProxy(List<ChatPrompt> chatPrompts)
     {
+        // ReSharper disable StringLiteralTypo
         _api = new OpenAIClient("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");
         var chatRequest = new ChatRequest(chatPrompts);
         _api.ChatEndpoint.GetCompletionAsync(chatRequest).Wait();
@@ -43,13 +42,11 @@ public class GptProxy : IGptProxy
 
 public class BaseReqGptProxy : IGptProxy
 {
-    private IFileEditor Logger;
     private string BaseReq { get; set; }
     private OpenAIClient AiClient { get; set; }
 
     public BaseReqGptProxy(string baseReq)
     {
-        Logger = FileEditorsFactory.CreateRunLogEditor();
         BaseReq = baseReq;
         AiClient = new OpenAIClient("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");
     }
@@ -63,7 +60,6 @@ public class BaseReqGptProxy : IGptProxy
         var chatRequest = new ChatRequest(chatPrompts, Model.GPT3_5_Turbo, 0.01);
         var result = await AiClient.ChatEndpoint.GetCompletionAsync(chatRequest);
         var response = (string)result.FirstChoice;
-        Logger.AppendText("User:\n" + massage + "\n\nGPT:\n" + response + "\n----------------------------\n");
         return response;
     }
 
@@ -90,29 +86,6 @@ public class LoggingGptProxy : BaseReqGptProxy
         Logger.Log(response, ELogType.ConversationBot);
         
         return response;
-    }
-}
-
-public class NewNugetGptProxy : IGptProxy
-{
-    private readonly OpenAILibClient _aiClient;
-
-    public NewNugetGptProxy()
-    {
-        _aiClient = new OpenAILibClient(
-            "org-0urPpvWLMicgECfNsGbgSNBU",
-            "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");
-    }
-
-    public async Task<string> GetResponse(string massage)
-    {
-        var result = await _aiClient.GetCompletionAsync(massage);
-        return result;
-    }
-
-    public void AddToBaseRequest(string addition)
-    {
-        throw new NotImplementedException();
     }
 }
 
@@ -258,14 +231,12 @@ public static class GptProxiesFactory
         "or a implementation issue, fix it (the function still needs to match its description).\n" +
         " - This line:" + EndOfConversationSection +
         EndOfIntroductionSection;
-    // private const string FunctionFixerRequestExample = 
-    //     "Request Example:\n" +
-    //     "function that returns a number plus 2" +
-    //     EndOfIntroductionSection;
-    // private const string FunctionFixerAnswerExample = 
-    //     "Expected Answer:\n" +
-    //     "public int AddTwo(int num)\n{\n   return num + 2;\n}" +
-    //     EndOfIntroductionSection;
+    // Todo: edit
+    private const string FunctionFixerRequestExample = 
+        "This is an example to a request that I could give you:\n" +
+        "function that returns a number plus 2" +
+        EndOfIntroductionSection;
+    private const string FunctionFixerAnswerExample = "";
 
     #endregion
 
@@ -382,7 +353,7 @@ public static class GptProxiesFactory
                                    FunctionFixerAnswerFormat +
                                    EndOfIntroduction;
         
-        var logger = LoggersFactory.CreateConversationLogger("GptFunctionDeveloper");
+        var logger = LoggersFactory.CreateConversationLogger("GptFunctionFixer");
 
         var gptFunctionDeveloper = new LoggingGptProxy(baseRequest, logger);
 

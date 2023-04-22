@@ -4,6 +4,7 @@ namespace GptJunior;
 
 public interface IClassManager
 {
+    string Read();
     void CreateFile();
     void AddMember(string member);
     void AddFunction(List<string> function);
@@ -36,6 +37,11 @@ public class ClassManager : IClassManager
         _classCode = GetClassBaseCode();
     }
 
+
+    public string Read()
+    {
+        return _fileEditor.ReadFile();
+    }
 
     public void CreateFile()
     {
