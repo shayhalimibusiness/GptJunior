@@ -22,13 +22,18 @@ public class GptJunior : IGptJunior
         
         string functionName = response.FunctionName[0];
         List<string> functionImplementation = response.FunctionImplementation;
-        var flow = response.Flow;
+        List<string> flow = response.Flow;
         var expectedResult = response.ExpectedResult;
 
         IClassManager classManager = _projectManager.GetClass(functionName);
         classManager.AddFunction(functionImplementation);
+        var testFunction = Helpers.CreateFunctionWrapper("Test");
+        flow = flow.Select(line => line = "   " + line).ToList();
+        testFunction.InsertRange(2, flow);
+        classManager.AddFunction(testFunction);
+        
         var programManager = _projectManager.GetProgram(); 
-        programManager.AddFlow(flow);
+        programManager.AddFlow(new List<string> {$"var test = new {functionName}Class();"});
         programManager.Save();
         
     }

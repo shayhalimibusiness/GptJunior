@@ -236,7 +236,7 @@ public static class GptProxiesFactory
         " - A Program.cs file content with this function use.\n" +
         " - This line:" + EndOfConversationSection +
         " - build_log.txt of building the project with:\n" +
-        "   dotnet build -o ./output PlayGround.csproj > ./output/build_log.txt 2>&1\n" +
+        "   dotnet build -o ../output PlayGround.csproj > ../output/build_log.txt 2>&1\n" +
         "   The only cs files in the project are Program and the class file." +
         " - This line:" + EndOfConversationSection +
         " - run_log.txt of running the project with:\n" +

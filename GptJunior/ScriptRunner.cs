@@ -49,7 +49,7 @@ public class ScriptRunner : IScriptRunner
 
 public static class ScriptRunnerFactory
 {
-    private const string ScriptsDir = @"C:\Users\shay.halimi\Desktop\GptJunior\PlayGround\PlayGround\scripts\";
+    private const string ScriptsDir = @"C:\Users\shay.halimi\Desktop\PrivateWorkPlace\PlayGround\scripts\";
     private const string ScriptPostfix = ".bat";
     
     public static IScriptRunner CreateRunProjectScriptRunner()

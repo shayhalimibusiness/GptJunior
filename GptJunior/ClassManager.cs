@@ -12,8 +12,8 @@ public interface IClassManager
 
 public class ClassManager : IClassManager
 {
-    private const int MemBaseLine = 5;
-    private const int FuncBaseLine = 7;
+    private const int MemBaseLine = 6;
+    private const int FuncBaseLine = 8;
     private const string Indentation = "        ";
 
     private readonly string _className;

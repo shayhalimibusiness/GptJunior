@@ -55,11 +55,14 @@ public class ProjectManager : IProjectManager
 
     public IClassManager GetClass(string className)
     {
+        const string classNamePostfix = "Class";
+        
         if (_classManagers.TryGetValue(className, out var classManager))
             return classManager;
 
-        var classMgr = _createClassManager(className);
+        var classMgr = _createClassManager(className + classNamePostfix);
         _classManagers[className] = classMgr;
+        classMgr.CreateFile();
 
         return classMgr;
     }

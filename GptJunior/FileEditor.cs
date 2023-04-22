@@ -143,13 +143,13 @@ public class FileEditor : IFileEditor
 
 public static class FileEditorsFactory
 {
-    private const string GptJuniorDirPath = @"C:\Users\shay.halimi\Desktop\GptJunior\";
-    private const string PlayGroundDirPath = @"C:\Users\shay.halimi\Desktop\GptJunior\PlayGround\PlayGround\";
-    private const string OutputDirPath = @"C:\Users\shay.halimi\Desktop\GptJunior\PlayGround\PlayGround\output\";
+    private const string GptJuniorDirPath = @"C:\Users\shay.halimi\Desktop\PrivateWorkPlace\GptJunior\";
+    private const string PlayGroundDirPath = @"C:\Users\shay.halimi\Desktop\PrivateWorkPlace\PlayGround\PlayGround\";
+    private const string OutputDirPath = @"C:\Users\shay.halimi\Desktop\PrivateWorkPlace\PlayGround\output\";
 
     public static IFileEditor CreateProgramEditor()
     {
-        return new FileEditor(GptJuniorDirPath + @"Program.cs");
+        return new FileEditor(PlayGroundDirPath + @"Program.cs");
     }
 
     public static IFileEditor CreateBuildLogEditor()
