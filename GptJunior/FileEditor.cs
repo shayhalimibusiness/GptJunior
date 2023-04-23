@@ -143,32 +143,38 @@ public class FileEditor : IFileEditor
 
 public static class FileEditorsFactory
 {
-    private const string GptJuniorDirPath = @"C:\Users\shay.halimi\Desktop\PrivateWorkPlace\GptJunior\";
-    private const string PlayGroundDirPath = @"C:\Users\shay.halimi\Desktop\PrivateWorkPlace\PlayGround\PlayGround\";
-    private const string OutputDirPath = @"C:\Users\shay.halimi\Desktop\PrivateWorkPlace\PlayGround\output\";
-
     public static IFileEditor CreateProgramEditor()
     {
-        return new FileEditor(PlayGroundDirPath + @"Program.cs");
+        return new FileEditor(Common.PlayGroundDirPath + @"Program.cs");
     }
 
     public static IFileEditor CreateBuildLogEditor()
     {
-        return new FileEditor(OutputDirPath + @"build_log.txt");
+        return new FileEditor(Common.OutputDirPath + @"build_log.txt");
     }
     
     public static IFileEditor CreateRunLogEditor()
     {
-        return new FileEditor(OutputDirPath + @"run_log.txt");
+        return new FileEditor(Common.OutputDirPath + @"run_log.txt");
     }
 
     public static IFileEditor CreateConversationLogEditor()
     {
-        return new FileEditor(OutputDirPath + @"conversation_log.txt");
+        return new FileEditor(Common.OutputDirPath + @"conversation_log.txt");
     }
 
     public static IFileEditor CreateClassEditor(string className)
     {
-        return new FileEditor(PlayGroundDirPath + className + ".cs");
+        return new FileEditor(Common.PlayGroundDirPath + className + ".cs");
+    }
+    
+    public static IFileEditor CreateCreateBranchEditor()
+    {
+        return new FileEditor(Common.ScriptsDirPath + "CreateBranch.bat");
+    }
+    
+    public static IFileEditor CreateCommitChangesEditor()
+    {
+        return new FileEditor(Common.ScriptsDirPath + "CommitChanges.bat");
     }
 }

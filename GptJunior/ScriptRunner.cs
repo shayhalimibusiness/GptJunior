@@ -49,12 +49,21 @@ public class ScriptRunner : IScriptRunner
 
 public static class ScriptRunnerFactory
 {
-    private const string ScriptsDir = @"C:\Users\shay.halimi\Desktop\PrivateWorkPlace\PlayGround\scripts\";
-    private const string ScriptPostfix = ".bat";
-    
     public static IScriptRunner CreateRunProjectScriptRunner()
     {
         const string scriptName = "RunProject";
-        return new ScriptRunner(ScriptsDir + scriptName + ScriptPostfix);
+        return new ScriptRunner(Common.ScriptsDirPath + scriptName + Common.ScriptPostfix);
+    }
+    
+    public static IScriptRunner CreateCreateBranchScriptRunner()
+    {
+        const string scriptName = "CreateBranch";
+        return new ScriptRunner(Common.ScriptsDirPath + scriptName + Common.ScriptPostfix);
+    }
+    
+    public static IScriptRunner CreateCommitChangesScriptRunner()
+    {
+        const string scriptName = "CommitChanges";
+        return new ScriptRunner(Common.ScriptsDirPath + scriptName + Common.ScriptPostfix);
     }
 }
