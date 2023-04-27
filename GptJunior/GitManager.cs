@@ -31,6 +31,7 @@ public class GitManager : IGitManager
         _branchName = name;
         var script = 
             "@echo off\n" +
+            $"cd ~/Desktop/PrivateWorkPlace/PlayGround" +
             $"git checkout -b {name}";
         _createBranchEditor.WriteFile(script);
         _createBranchScript.Run();
