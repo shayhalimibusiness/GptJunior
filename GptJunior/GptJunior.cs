@@ -26,6 +26,7 @@ public class GptJunior : IGptJunior
         var result = await Develop(description);
         string expectedResult = result.ExpectedResult;
         await Fix(expectedResult);
+        _gitManager.CommitChanges("Initial Commit.");
     }
 
     private async Task<dynamic> Develop(string description)
@@ -39,6 +40,8 @@ public class GptJunior : IGptJunior
         List<string> flow = response.Flow;
         string expectedResult = response.ExpectedResult[0];
 
+        _gitManager.CreateBranch("project_" + functionName);
+        
         var classManager = _projectManager.GetClass(functionName);
         classManager.AddFunction(functionImplementation);
         var testFunction = Helpers.CreateFunctionWrapper("Test");
