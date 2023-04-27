@@ -2,11 +2,15 @@
 
 using GptJunior;
 
+// var gitManager = GitManagersFactory.CreateGitManager();
+// gitManager.CreateBranch("testingIt");
+// gitManager.CommitChanges("Initial Commit.");
+
 // var projectManager = ProjectManagersFactory.CreateProjectManager();
 // var gptDeveloper = GptDevelopersFactory.CreateGptDeveloper();
 //
 // var gptJunior = new GptJunior.GptJunior(projectManager, gptDeveloper);
 
 var gptJunior = GptJuniorsFactory.CreateGptJunior();
-await gptJunior.Create("a function that take a number and return the closest odd number that is higher than it");
+await gptJunior.Create("a function that take 3 numbers and return the 2 who are closest");
 
