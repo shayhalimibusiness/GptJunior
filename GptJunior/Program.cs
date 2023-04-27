@@ -2,9 +2,11 @@
 
 using GptJunior;
 
-var projectManager = ProjectManagersFactory.CreateProjectManager();
-var gptDeveloper = GptDevelopersFactory.CreateGptDeveloper();
+// var projectManager = ProjectManagersFactory.CreateProjectManager();
+// var gptDeveloper = GptDevelopersFactory.CreateGptDeveloper();
+//
+// var gptJunior = new GptJunior.GptJunior(projectManager, gptDeveloper);
 
-var gptJunior = new GptJunior.GptJunior(projectManager, gptDeveloper);
+var gptJunior = GptJuniorsFactory.CreateGptJunior();
 await gptJunior.Create("a function that take a number and return the closest odd number that is higher than it");
 

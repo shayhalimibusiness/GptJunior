@@ -23,11 +23,12 @@ public class GptJunior : IGptJunior
 
     public async Task Create(string description)
     {
-        var functionName = await Develop(description);
-        await Fix(functionName);
+        var result = await Develop(description);
+        string expectedResult = result.ExpectedResult;
+        await Fix(expectedResult);
     }
 
-    private async Task<string> Develop(string description)
+    private async Task<dynamic> Develop(string description)
     {
         var programManager = _projectManager.GetProgram();
         
@@ -36,30 +37,63 @@ public class GptJunior : IGptJunior
         string functionName = response.FunctionName[0];
         List<string> functionImplementation = response.FunctionImplementation;
         List<string> flow = response.Flow;
-        var expectedResult = response.ExpectedResult;
+        string expectedResult = response.ExpectedResult[0];
 
         var classManager = _projectManager.GetClass(functionName);
         classManager.AddFunction(functionImplementation);
         var testFunction = Helpers.CreateFunctionWrapper("Test");
-        flow = flow.Select(line => line = "   " + line).ToList();
+        flow = flow.Select(line => "   " + line).ToList();
         testFunction.InsertRange(2, flow);
         classManager.AddFunction(testFunction);
         
         programManager.AddFlow(new List<string> {$"var test = new {functionName}Class();"});
         programManager.Save();
 
-        return functionName;
+        dynamic result = new
+        {
+            FunctionName = functionName, 
+            ExpectedResult = expectedResult
+        };
+        
+        return result;
     }
 
-    private async Task Fix(string functionName)
+    private async Task Fix(string expectedResult)
     {
         // Todo: Remember past iterations
         for (var i = 0; i < 10; i++)
         {
-            var feedback = _projectManager.Run();
+            var res = _projectManager.Run();
+            string functionName = res.FunctionName;
+            string classCs = res.ClassCs;
+            string programCs = res.ProgramCs;
+            string buildLog = res.BuildLog;
+            string runLog = res.RunLog;
+
+
+            var feedback =
+                Common.SectionLine +
+                functionName +
+                Common.SectionLine +
+                Common.ClassTitle +
+                classCs +
+                Common.SectionLine +
+                Common.ProgramTitle +
+                programCs +
+                Common.SectionLine +
+                Common.BuildTitle +
+                buildLog +
+                Common.SectionLine +
+                Common.RunTitle +
+                runLog +
+                Common.SectionLine +
+                Common.ExpectedRunTitle +
+                expectedResult +
+                Common.SectionLine;
+            
             var response = await _gptDeveloper.Fix(feedback);
             string result = response.Result[0];
-            string newProgramCs = string.Join('\n', response.ProgramCs);;
+            string newProgramCs = string.Join('\n', response.ProgramCs);
             string newClassCs = string.Join('\n', response.ClassCs);
             switch (result)
             {

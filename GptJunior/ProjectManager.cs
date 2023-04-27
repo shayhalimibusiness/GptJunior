@@ -2,7 +2,7 @@ namespace GptJunior;
 
 public interface IProjectManager
 {
-    string Run();
+    dynamic Run();
     IClassManager GetClass(string className);
     IProgramManager GetProgram();
 }
@@ -11,21 +11,13 @@ public delegate IClassManager CreateClassManager(string className);
 
 public class ProjectManager : IProjectManager
 {
-    private const string SectionLine = "\n*******************************************\n";
-    private const string FunctionNameTitle = "Function name:\n";
-    private const string ClassTitle = "Class file:\n";
-    private const string ProgramTitle = "Program.cs:\n";
-    private const string BuildTitle = "Build:\n";
-    private const string RunTitle = "Run:\n";
-
     private readonly IProgramManager _programManager;
     private readonly CreateClassManager _createClassManager;
     private readonly IScriptRunner _runProjectScriptRunner;
     private readonly IFeedbackViewer _feedbackViewer;
     
     private readonly Dictionary<string, IClassManager> _classManagers;
-
-
+    
     public ProjectManager(
         IProgramManager programManager, 
         CreateClassManager createClassManager, 
@@ -40,7 +32,7 @@ public class ProjectManager : IProjectManager
         _classManagers = new Dictionary<string, IClassManager>();
     }
 
-    public string Run()
+    public dynamic Run()
     {
         _runProjectScriptRunner.Run();
 
@@ -49,25 +41,15 @@ public class ProjectManager : IProjectManager
         var functionName = _classManagers.ToList()[0].Key.Split("Class")[0];
         var programCs = _programManager.Read();
 
-        var feedback =
-            SectionLine +
-            FunctionNameTitle +
-            functionName +
-            SectionLine +
-            ClassTitle +
-            classCs +
-            SectionLine +
-            ProgramTitle +
-            programCs +
-            SectionLine +
-            BuildTitle +
-            _feedbackViewer.GetBuildLog() +
-            SectionLine +
-            RunTitle +
-            _feedbackViewer.GetRunLog() +
-            SectionLine;
-
-        return feedback;
+        var result = new
+        {
+            FunctionName = functionName,
+            ClassCs = classCs,
+            ProgramCs = programCs,
+            BuildLog = _feedbackViewer.GetBuildLog(),
+            RunLog = _feedbackViewer.GetRunLog()
+        };
+        return result;
     }
 
     public IClassManager GetClass(string className)

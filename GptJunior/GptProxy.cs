@@ -214,6 +214,9 @@ public static class GptProxiesFactory
         " - This line:" + EndOfConversationSection +
         " - run_log.txt of running the project with:\n" +
         @"   output\PlayGround.exe > ./output/run_log.txt 2>&1\n" +
+        " - This line:" + EndOfConversationSection +
+        " - Expected result of the run_log:\n" +
+        " - This line:" + EndOfConversationSection +
         EndOfIntroductionSection;
     private const string FunctionFixerNotes = 
         "Base on this information you will have to figure out if the project was " +
