@@ -14,3 +14,5 @@ using GptJunior;
 var gptJunior = GptJuniorsFactory.CreateGptJunior();
 await gptJunior.Create("a function that take 3 numbers and return the 2 who are closest");
 
+Console.ReadLine();
+
