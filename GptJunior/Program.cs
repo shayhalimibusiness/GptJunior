@@ -12,7 +12,7 @@ using GptJunior;
 // var gptJunior = new GptJunior.GptJunior(projectManager, gptDeveloper);
 
 var gptJunior = GptJuniorsFactory.CreateGptJunior();
-await gptJunior.Create("a function that take 3 numbers and return the 2 who are closest");
+await gptJunior.Create("a function that Create a graph from nothing. The graph has 3 nodes and 2 edges.");
 
 Console.ReadLine();
 

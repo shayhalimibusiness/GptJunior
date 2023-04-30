@@ -7,7 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d11259b-3d99-49fb-aaf0-7750460699b0" name="Changes" comment="" />
+    <list default="true" id="0d11259b-3d99-49fb-aaf0-7750460699b0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GptJunior/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GptJunior/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GptJunior/GptProxy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GptJunior/GptProxy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GptJunior/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GptJunior/Program.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,18 +24,14 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/235b8d206b56acfe04faeb04511585b156981556882336a9a49a871c0722e90/Type.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/36e740b59df23626d207e72ea77e34298e53dd99db463eee529f8c416b5664/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9a6b1457cbcf17db31a383ba49ef9bcc786cf3ef77146d997eee499b27a46d/Object.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/shay.halimi/Desktop/PrivateWorkPlace/GptJunior/GptJunior/Common.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GptJunior/ELogType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GptJunior/FileEditor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/shay.halimi/Desktop/PrivateWorkPlace/GptJunior/GptJunior/GptJunior.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GptJunior/GptProxy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/shay.halimi/Desktop/PrivateWorkPlace/GptJunior/GptJunior/GptProxy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GptJunior/Logger.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/shay.halimi/Desktop/PrivateWorkPlace/GptJunior/GptJunior/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GptJunior/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GptJunior/ProjectManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/shay.halimi/Desktop/PrivateWorkPlace/GptJunior/GptJunior/ProjectManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/GptJunior/ScriptRunner.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Program.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectId" id="2OIvYQ3nqYHCJ9xeaGSppf5sofH" />
@@ -99,7 +99,8 @@
       <workItem from="1682262707886" duration="2705000" />
       <workItem from="1682277122255" duration="2645000" />
       <workItem from="1682609955359" duration="2356000" />
-      <workItem from="1682612362670" duration="1016000" />
+      <workItem from="1682612362670" duration="5542000" />
+      <workItem from="1682862476133" duration="935000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit.">
       <created>1681261032805</created>
@@ -222,12 +223,6 @@
           <line>45</line>
           <properties documentPath="C:\Users\shay.halimi\Desktop\GptJunior\GptJunior\ProgramManager.cs" initialLine="38" containingFunctionPresentation="Method 'Save'" />
           <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/GptJunior/FileEditor.cs</url>
-          <line>82</line>
-          <properties documentPath="C:\Users\shay.halimi\Desktop\GptJunior\GptJunior\FileEditor.cs" initialLine="82" containingFunctionPresentation="Method 'WriteFile'" />
-          <option name="timeStamp" value="56" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
