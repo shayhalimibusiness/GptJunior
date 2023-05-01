@@ -5,13 +5,13 @@ public interface IGptJunior
     Task Create(string description);
 }
 
-public class GptJunior : IGptJunior
+public class BaseGptJunior : IGptJunior
 {
     private readonly IProjectManager _projectManager;
     private readonly IGptDeveloper _gptDeveloper;
     private readonly IGitManager _gitManager;
 
-    public GptJunior(
+    public BaseGptJunior(
         IProjectManager projectManager, 
         IGptDeveloper gptDeveloper, 
         IGitManager gitManager)
@@ -123,7 +123,7 @@ public static class GptJuniorsFactory
         var gptDeveloper = GptDevelopersFactory.CreateGptDeveloper();
         var gitManager = GitManagersFactory.CreateGitManager();
 
-        var gptJunior = new GptJunior(
+        var gptJunior = new BaseGptJunior(
             projectManager, 
             gptDeveloper,
             gitManager);

@@ -2,6 +2,11 @@
 
 using GptJunior;
 
+// var res = await Tester.GetTokenLimit(800);
+// Console.WriteLine(res);
+// var str = Tester.GetRandomNumbersString(800);
+// Console.WriteLine(str);
+
 // var gitManager = GitManagersFactory.CreateGitManager();
 // gitManager.CreateBranch("testingIt");
 // gitManager.CommitChanges("Initial Commit.");
