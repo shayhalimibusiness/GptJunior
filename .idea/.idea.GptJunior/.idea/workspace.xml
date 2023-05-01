@@ -7,11 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d11259b-3d99-49fb-aaf0-7750460699b0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GptJunior/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GptJunior/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GptJunior/GptProxy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GptJunior/GptProxy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GptJunior/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GptJunior/Program.cs" afterDir="false" />
-    </list>
+    <list default="true" id="0d11259b-3d99-49fb-aaf0-7750460699b0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,7 +96,7 @@
       <workItem from="1682277122255" duration="2645000" />
       <workItem from="1682609955359" duration="2356000" />
       <workItem from="1682612362670" duration="5542000" />
-      <workItem from="1682862476133" duration="935000" />
+      <workItem from="1682862476133" duration="1597000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit.">
       <created>1681261032805</created>
