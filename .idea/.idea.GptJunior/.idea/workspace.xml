@@ -97,6 +97,7 @@
       <workItem from="1682609955359" duration="2356000" />
       <workItem from="1682612362670" duration="5542000" />
       <workItem from="1682862476133" duration="1597000" />
+      <workItem from="1682930068790" duration="330000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit.">
       <created>1681261032805</created>
@@ -219,6 +220,19 @@
           <line>45</line>
           <properties documentPath="C:\Users\shay.halimi\Desktop\GptJunior\GptJunior\ProgramManager.cs" initialLine="38" containingFunctionPresentation="Method 'Save'" />
           <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/GptJunior/GptJunior.cs</url>
+          <line>68</line>
+          <properties documentPath="C:\Users\shay.halimi\Desktop\PrivateWorkPlace\GptJunior\GptJunior\GptJunior.cs" initialLine="68" containingFunctionPresentation="Method 'Fix'">
+            <startOffsets>
+              <option value="2119" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2151" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
