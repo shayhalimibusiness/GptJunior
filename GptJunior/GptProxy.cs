@@ -98,7 +98,7 @@ public static class GptProxiesFactory
     private const string EndOfRequest = "\n######\n";
     private const string EndOfConversationSection = "\n>>>>>\n";
 
-    private const string Introduction =
+    private const string OldIntroduction =
         "This is not the request itself but instructions on what requests to aspect, and how to answer requests.\n" +
         "Between Instructions' different sections there will be this line:" + EndOfIntroductionSection +
         "In the end of all of the instructions there will be this line:" + EndOfIntroduction;
@@ -246,6 +246,20 @@ public static class GptProxiesFactory
 
     #endregion
 
+    #region InterfaceDeveloper
+
+    private const string UserRequestToken = "<UserRequest>";
+    private const string DescriptionToken = "<Description>";
+    private const string ListToken = "<List>";
+    
+
+    private const string Introduction =
+        $"This is an explanation on how to reply to a request. \nThe request will begin after the token: {UserRequestToken}.";
+    
+    private const string InterfaceDeveloperInstructions = "The request will contain a description of an interface.\nYour answer should be the interface, an implementation of the interface, \na factory class with a function that creates an instance from this implementation,\nUnit tests that test the implementation and the necessary code to support it.\nThe code is in C#.\nThe format of your answer will be json:\n{\n\t\"Inter\": <The content of the .cs file that contains the interface.>,\n\t\"Implementation\": [<List of files for the interface, implementation factory and code, and their content>\n\t\t{\n\t\t\t\"Name\": \"fileNum1\"\n\t\t\t\"Code\": <the code in the file.>\n\t\t},\n\t\t{\n\t\t\t\"Name\": \"fileNum2\"\n\t\t\t\"Code\": <the code in the file.>\n\t\t},...\n\t\t],\n\t\"Tests\": [<List of files for the unit tests and their content:>\n\t\t{\n\t\t\t\"Name\": \"fileNum1\"\n\t\t\t\"Code\": <the code in the file.>\n\t\t},\n\t\t{\n\t\t\t\"Name\": \"fileNum2\"\n\t\t\t\"Code\": <the code in the file.>\n\t\t},...\n\t\t],\n}";
+
+    #endregion
+
     public static IGptProxy GetScriptWriterBot()
     {
         const string baseRequest =
@@ -312,7 +326,7 @@ public static class GptProxiesFactory
     public static IGptProxy GetCodeFixer()
     {
         const string baseRequest =
-            Introduction +
+            OldIntroduction +
             FixerRequestFormat +
             FixerAnswerFormat +
             GoodBuildExample +
@@ -325,7 +339,7 @@ public static class GptProxiesFactory
     public static IGptProxy CreateCodeBot()
     {
         const string baseRequest =
-            Introduction +
+            OldIntroduction +
             CoderRequestFormat +
             CoderAnswerFormat +
             EndOfIntroduction;
@@ -336,7 +350,7 @@ public static class GptProxiesFactory
 
     public static IGptProxy CreateGptFunctionDeveloper()
     {
-        const string baseRequest = Introduction +
+        const string baseRequest = OldIntroduction +
                                    FunctionDeveloperRequestFormat +
                                    FunctionDeveloperAnswerFormat +
                                    FunctionDeveloperRequestExample +
@@ -353,7 +367,7 @@ public static class GptProxiesFactory
     
     public static IGptProxy CreateGptFunctionFixer()
     {
-        const string baseRequest = Introduction +
+        const string baseRequest = OldIntroduction +
                                    FunctionFixerRequestFormat +
                                    FunctionFixerNotes +
                                    FunctionFixerAnswerFormat +
@@ -362,6 +376,19 @@ public static class GptProxiesFactory
                                    EndOfIntroduction;
         
         var logger = LoggersFactory.CreateConversationLogger("GptFunctionFixer");
+
+        var gptFunctionDeveloper = new LoggingGptProxy(baseRequest, logger);
+
+        return gptFunctionDeveloper;
+    }
+
+    public static IGptProxy CreateGptTester()
+    {
+        const string baseRequest =
+            Introduction +
+            InterfaceDeveloperInstructions;
+        
+        var logger = LoggersFactory.CreateConversationLogger("GptTester");
 
         var gptFunctionDeveloper = new LoggingGptProxy(baseRequest, logger);
 

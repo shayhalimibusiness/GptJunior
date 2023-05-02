@@ -22,7 +22,7 @@ public class ProjectDeveloper : IGptDeveloper
     public async Task<dynamic> Develop(string request)
     {
         var textResponse = await _developer.GetResponse(request);
-        var sections = _translator.Translate(textResponse).ToArray();
+        List<List<string>> sections = _translator.Translate(textResponse).ToArray();
         var functionName = sections[0];
         var functionImplementation = sections[1];
         var flow = sections[2];

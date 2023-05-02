@@ -2,12 +2,12 @@ namespace GptJunior;
 
 public interface IGptAdaptor
 {
-    IEnumerable<IEnumerable<string>> Translate(string response);
+    dynamic Translate(string response);
 }
 
 public class GptAdaptor : IGptAdaptor
 {
-    public IEnumerable<IEnumerable<string>> Translate(string response)
+    public dynamic Translate(string response)
     {
         var lines = response.Split("\n");
         var section = new List<string>();
