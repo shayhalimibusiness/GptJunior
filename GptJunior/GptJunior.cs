@@ -120,7 +120,7 @@ public static class GptJuniorsFactory
     public static IGptJunior CreateGptJunior()
     {
         var projectManager = ProjectManagersFactory.CreateProjectManager();
-        var gptDeveloper = GptDevelopersFactory.CreateGptDeveloper();
+        var gptDeveloper = GptDevelopersFactory.CreateBaseGptDeveloper();
         var gitManager = GitManagersFactory.CreateGitManager();
 
         var gptJunior = new BaseGptJunior(
