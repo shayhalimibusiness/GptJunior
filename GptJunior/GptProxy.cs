@@ -258,6 +258,9 @@ public static class GptProxiesFactory
     
     private const string InterfaceDeveloperInstructions = "The request will contain a description of an interface.\nYour answer should be the interface, an implementation of the interface, \na factory class with a function that creates an instance from this implementation,\nUnit tests that test the implementation and the necessary code to support it.\nThe code is in C#.\nThe format of your answer will be json:\n{\n\t\"Inter\": <The content of the .cs file that contains the interface.>,\n\t\"Implementation\": [<List of files for the interface, implementation factory and code, and their content>\n\t\t{\n\t\t\t\"Name\": \"fileNum1\"\n\t\t\t\"Code\": <the code in the file.>\n\t\t},\n\t\t{\n\t\t\t\"Name\": \"fileNum2\"\n\t\t\t\"Code\": <the code in the file.>\n\t\t},...\n\t\t],\n\t\"Tests\": [<List of files for the unit tests and their content:>\n\t\t{\n\t\t\t\"Name\": \"fileNum1\"\n\t\t\t\"Code\": <the code in the file.>\n\t\t},\n\t\t{\n\t\t\t\"Name\": \"fileNum2\"\n\t\t\t\"Code\": <the code in the file.>\n\t\t},...\n\t\t],\n}";
 
+    private const string InterfaceFixerInstructions = 
+        "The request is feedback on a new code (the code in C#).\nThe request will be in json format and is equal to this class:\npublic class FixRequest\n{\n    public string? Description { get; set; } // Description of what the code supposed to do.\n    public string? Build { get; set; } // The build log of the code.\n    public string? Run { get; set; } // The Run log of the code, including Unit Tests for it. \n    public List<FileModule>? Files { get; set; } // A list of files with the code inside. \n}\n\nYour answer should be a list of files that needs correction:\nThe format of your answer will be json:\n{\n\t\"Files\": [\n\t\t<List of files that needs correction and the correction itself>\n\t\t{\n\t\t\t\"FileName\": \"fileNum1\",\n\t\t\t\"DesignPattern\": null\n\t\t\t\"FileContent\": <the code in the file>\n\t\t},\n\t\t{\n\t\t\t\"FileName\": \"fileNum2\",\n\t\t\t\"DesignPattern\": null\n\t\t\t\"FileContent\": <the code in the file>\n\t\t},\n\t\t...\n\t]\n}\n";
+    
     #endregion
 
     public static IGptProxy GetScriptWriterBot()
@@ -382,13 +385,28 @@ public static class GptProxiesFactory
         return gptFunctionDeveloper;
     }
 
-    public static IGptProxy CreateGptTester()
+    public static IGptProxy CreateInterfaceDeveloper()
     {
         const string baseRequest =
             Introduction +
-            InterfaceDeveloperInstructions;
+            InterfaceDeveloperInstructions +
+            UserRequestToken;
         
-        var logger = LoggersFactory.CreateConversationLogger("GptTester");
+        var logger = LoggersFactory.CreateConversationLogger("InterfaceDeveloper");
+
+        var gptFunctionDeveloper = new LoggingGptProxy(baseRequest, logger);
+
+        return gptFunctionDeveloper;
+    }
+    
+    public static IGptProxy CreateInterfaceFixer()
+    {
+        const string baseRequest =
+            Introduction +
+            InterfaceFixerInstructions +
+            UserRequestToken;
+        
+        var logger = LoggersFactory.CreateConversationLogger("InterfaceFixer");
 
         var gptFunctionDeveloper = new LoggingGptProxy(baseRequest, logger);
 

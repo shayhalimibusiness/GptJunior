@@ -4,10 +4,10 @@ using System.Text.Json;
 using GptJunior;
 using GptJunior.Modules;
 
-var gptTester = GptProxiesFactory.CreateGptTester();
+var gptTester = GptProxiesFactory.CreateInterfaceDeveloper();
 var response =
     await gptTester.GetResponse("Interface that can takes number and bring back the sum of all the numbers it got so far.");
-DevAnswer jsonAns = JsonSerializer.Deserialize<DevAnswer>(response);
+DevAnswer? jsonAns = JsonSerializer.Deserialize<DevAnswer>(response);
 Console.WriteLine(response);
 
 // var res = await Tester.GetTokenLimit(800);
