@@ -1,4 +1,4 @@
-namespace GptJunior;
+namespace GptJunior.IDE;
 
 public interface IGitManager
 {
@@ -9,10 +9,10 @@ public interface IGitManager
 public class GitManager : IGitManager
 {
     private string? _branchName;
-    private IScriptRunner _createBranchScript;
-    private IScriptRunner _commitChangesScript;
-    private IFileEditor _createBranchEditor;
-    private IFileEditor _commitChangesEditor;
+    private readonly IScriptRunner _createBranchScript;
+    private readonly IScriptRunner _commitChangesScript;
+    private readonly IFileEditor _createBranchEditor;
+    private readonly IFileEditor _commitChangesEditor;
     
     public GitManager(
         IScriptRunner createBranchScript, 

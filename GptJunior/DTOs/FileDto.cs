@@ -1,6 +1,6 @@
 namespace GptJunior.Modules;
 
-public class FileModule
+public class FileDto
 {
     public string? FileName { get; set; }
     public EDesignPattern? DesignPattern { get; set; }

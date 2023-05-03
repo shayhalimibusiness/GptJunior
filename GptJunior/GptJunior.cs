@@ -1,3 +1,6 @@
+using GptJunior.IDE;
+using GptJunior.Modules;
+
 namespace GptJunior;
 
 public interface IGptJunior
@@ -115,9 +118,73 @@ public class BaseGptJunior : IGptJunior
     }
 }
 
+public class GptJunior : IGptJunior
+{
+    private readonly IGptDeveloper _gptDeveloper;
+    private readonly IGitManager _gitManager;
+    private readonly IIde _ide;
+
+    public GptJunior(
+        IGptDeveloper gptDeveloper, 
+        IGitManager gitManager, 
+        IIde ide)
+    {
+        _gptDeveloper = gptDeveloper;
+        _gitManager = gitManager;
+        _ide = ide;
+    }
+
+    public async Task Create(string interfaceDescription)
+    {
+        DevAnswer devAnswer = await _gptDeveloper.Develop(interfaceDescription);
+
+        _gitManager.CreateBranch("project_" + devAnswer.Name);
+        foreach (var fileDto in devAnswer.Implementation)
+        {
+            _ide.Write(fileDto.FileName, fileDto.FileContent);            
+        }
+        
+        foreach (var codeFile in devAnswer.Tests)
+        {
+            _ide.Write(codeFile.FileName, codeFile.FileContent);            
+        }
+
+        for (var i = 0; i < 3; i++)
+        {
+            RunDto runDto = _ide.Run();
+
+            var files = devAnswer.Implementation
+                .Concat(devAnswer.Tests)
+                .ToList();
+
+            var fixRequest = new FixRequest
+            {
+                Run = runDto.Run,
+                Build = runDto.Build,
+                Description = interfaceDescription,
+                Files = files,
+            };
+        
+            FixAnswer fixAnswer = await _gptDeveloper.Fix(fixRequest);
+
+            if (fixAnswer.Files.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var fileDto in fixAnswer.Files)
+            {
+                _ide.Write(fileDto.FileName, fileDto.FileContent);
+            }
+        }
+
+        _gitManager.CommitChanges("Initial Commit.");
+    }
+}
+
 public static class GptJuniorsFactory
 {
-    public static IGptJunior CreateGptJunior()
+    public static IGptJunior CreateBaseGptJunior()
     {
         var projectManager = ProjectManagersFactory.CreateProjectManager();
         var gptDeveloper = GptDevelopersFactory.CreateBaseGptDeveloper();
@@ -127,6 +194,20 @@ public static class GptJuniorsFactory
             projectManager, 
             gptDeveloper,
             gitManager);
+
+        return gptJunior;
+    }
+    
+    public static IGptJunior CreateGptJunior()
+    {
+        var gptDeveloper = GptDevelopersFactory.CreateBaseGptDeveloper();
+        var gitManager = GitManagersFactory.CreateGitManager();
+        var ide = IdesFactory.CreateIde();
+
+        var gptJunior = new GptJunior(
+            gptDeveloper,
+            gitManager,
+            ide);
 
         return gptJunior;
     }
