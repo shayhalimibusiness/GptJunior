@@ -9,12 +9,12 @@ var gitMgr = GitManagersFactory.CreateGitManager();
 gitMgr.CreateBranch("Test_Branch");
 
 var ide = IdesFactory.CreateIde();
-ide.Write("MyTest.cs", ";");
+ide.Write("MyTest", ";");
 
 gitMgr.CommitChanges("Initial Commit.");
 
 
-Console.ReadLine();
+Console.WriteLine("Done and Done");
 
 #region History
 
