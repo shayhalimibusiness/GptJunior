@@ -136,8 +136,10 @@ public class GptJunior : IGptJunior
 
     public async Task Create(string interfaceDescription)
     {
-        DevAnswer devAnswer = await _gptDeveloper.Develop(interfaceDescription);
+        var answer = await _gptDeveloper.Develop(interfaceDescription);
 
+        DevAnswer devAnswer = answer;
+        
         _gitManager.CreateBranch("project_" + devAnswer.Name);
         foreach (var fileDto in devAnswer.Implementation)
         {
@@ -200,7 +202,7 @@ public static class GptJuniorsFactory
     
     public static IGptJunior CreateGptJunior()
     {
-        var gptDeveloper = GptDevelopersFactory.CreateBaseGptDeveloper();
+        var gptDeveloper = GptDevelopersFactory.CreateJuniorDeveloper();
         var gitManager = GitManagersFactory.CreateGitManager();
         var ide = IdesFactory.CreateIde();
 

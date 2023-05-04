@@ -2,5 +2,5 @@ namespace GptJunior.Modules;
 
 public class FixAnswer
 {
-    public List<FileDto>? Files;
+    public List<FileDto>? Files { get; set; }
 }

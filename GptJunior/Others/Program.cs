@@ -4,11 +4,16 @@ using System.Text.Json;
 using GptJunior;
 using GptJunior.Modules;
 
-var gptTester = GptProxiesFactory.CreateInterfaceDeveloper();
-var response =
-    await gptTester.GetResponse("Interface that can takes number and bring back the sum of all the numbers it got so far.");
-DevAnswer? jsonAns = JsonSerializer.Deserialize<DevAnswer>(response);
-Console.WriteLine(response);
+// string jsonStrResponse =
+//     "{\n  \"Files\": [\n    {\n      \"FileName\": \"Graph.cs\",\n      \"DesignPattern\": 0,\n      \"FileContent\": \"public class GraphImpl : Graph { private List\\u003cNode\\u003e nodes \\u003d new List\\u003cNode\\u003e(); private List\\u003cTuple\\u003cNode, Node\\u003e\\u003e edges \\u003d new List\\u003cTuple\\u003cNode, Node\\u003e\\u003e(); public void AddNode(Node node) { nodes.Add(node); } public void AddEdge(Node node1, Node node2) { edges.Add(new Tuple\\u003cNode, Node\\u003e(node1, node2)); } public List\\u003cNode\\u003e GetNodes() { return nodes; } public List\\u003cTuple\\u003cNode, Node\\u003e\\u003e GetEdges() { return edges; } }\"\n    },\n    {\n      \"FileName\": \"Node.cs\",\n      \"DesignPattern\": 1,\n      \"FileContent\": \"public class Node { public int Id { get; set; } public Node(int id) { Id \\u003d id; } }\"\n    },\n    {\n      \"FileName\": \"GraphFactory.cs\",\n      \"DesignPattern\": 2,\n      \"FileContent\": \"public static class GraphFactory { public static Graph CreateGraph() { return new GraphImpl(); } }\"\n    },\n    {\n      \"FileName\": \"GraphTests.cs\",\n      \"DesignPattern\": 3,\n      \"FileContent\": \"public class GraphTests { [Test] public void TestCreateGraph() { Graph graph \\u003d GraphFactory.CreateGraph(); Assert.IsNotNull(graph); } [Test] public void TestAddNode() { Graph graph \\u003d GraphFactory.CreateGraph(); Node node1 \\u003d new Node(1); graph.AddNode(node1); Assert.AreEqual(1, graph.GetNodes().Count); } [Test] public void TestAddEdge() { Graph graph \\u003d GraphFactory.CreateGraph(); Node node1 \\u003d new Node(1); Node node2 \\u003d new Node(2); graph.AddNode(node1); graph.AddNode(node2); graph.AddEdge(node1, node2); Assert.AreEqual(1, graph.GetEdges().Count); } }\"\n    }\n  ]\n}";
+// FixAnswer? dtoResponse = JsonSerializer.Deserialize<FixAnswer>(jsonStrResponse);
+// Console.WriteLine(dtoResponse.ToString());
+
+// var gptTester = GptProxiesFactory.CreateInterfaceDeveloper();
+// var response =
+//     await gptTester.GetResponse("Interface that can takes number and bring back the sum of all the numbers it got so far.");
+// DevAnswer? jsonAns = JsonSerializer.Deserialize<DevAnswer>(response);
+// Console.WriteLine(response);
 
 // var res = await Tester.GetTokenLimit(800);
 // Console.WriteLine(res);
@@ -24,8 +29,8 @@ Console.WriteLine(response);
 //
 // var gptJunior = new GptJunior.GptJunior(projectManager, gptDeveloper);
 
-// var gptJunior = GptJuniorsFactory.CreateGptJunior();
-// await gptJunior.Create("a function that Create a graph from nothing. The graph has 3 nodes and 2 edges.");
+var gptJunior = GptJuniorsFactory.CreateGptJunior();
+await gptJunior.Create("an interface that generates a graph with 3 nodes and 2 edges.");
 
 Console.ReadLine();
 
