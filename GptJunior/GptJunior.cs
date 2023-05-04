@@ -136,6 +136,8 @@ public class GptJunior : IGptJunior
 
     public async Task Create(string interfaceDescription)
     {
+        Console.WriteLine("Start Developing");
+
         var answer = await _gptDeveloper.Develop(interfaceDescription);
 
         DevAnswer devAnswer = answer;
@@ -151,6 +153,8 @@ public class GptJunior : IGptJunior
             _ide.Write(codeFile.FileName, codeFile.FileContent);            
         }
 
+        Console.WriteLine("Finished Developing");
+        
         for (var i = 0; i < 3; i++)
         {
             RunDto runDto = _ide.Run();
@@ -178,6 +182,8 @@ public class GptJunior : IGptJunior
             {
                 _ide.Write(fileDto.FileName, fileDto.FileContent);
             }
+            
+            Console.WriteLine("Finished Fix Iteration");
         }
 
         _gitManager.CommitChanges("Initial Commit.");
