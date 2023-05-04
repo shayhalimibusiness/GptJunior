@@ -32,7 +32,7 @@ public class Ide : IIde
     public void Write(string file, string content)
     {
         var fullPath = Path.Join(_rootDirectoryPath, file);
-        IFileEditor fileEditor = new FileEditor(fullPath);
+        IFileEditor fileEditor = new FileEditor(fullPath + ".cs");
         fileEditor.WriteFile(content);
     }
 
@@ -54,7 +54,7 @@ public static class IdesFactory
 {
     public static IIde CreateIde()
     {
-        const string rootDirectoryPath = @"C:\Users\shay.halimi\Desktop\PrivateWorkPlace\PlayGround";
+        const string rootDirectoryPath = @"C:\Users\shay.halimi\Desktop\PrivateWorkPlace\PlayGround\PlayGround";
         var feedbackViewer = FeedbackViewersFactory.CreateProjectFeedbackViewer();
         var scriptRunner = ScriptRunnerFactory.CreateRunProjectScriptRunner();
         
