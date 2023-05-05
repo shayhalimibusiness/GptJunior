@@ -153,6 +153,7 @@ public class GptJunior : IGptJunior
             _ide.Write(codeFile.FileName, codeFile.FileContent);            
         }
 
+        _gitManager.CommitChanges("Development");
         Console.WriteLine("Finished Developing");
         
         for (var i = 0; i < 3; i++)
@@ -182,11 +183,13 @@ public class GptJunior : IGptJunior
             {
                 _ide.Write(fileDto.FileName, fileDto.FileContent);
             }
-            
+
+            _gitManager.CommitChanges("Fix");
             Console.WriteLine("Finished Fix Iteration");
         }
 
-        _gitManager.CommitChanges("Initial Commit.");
+        _gitManager.CommitChanges("Working");
+        _gitManager.CheckoutMaster();
     }
 }
 
