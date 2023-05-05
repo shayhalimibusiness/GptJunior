@@ -40,18 +40,19 @@ public class GitManager : IGitManager
 
     public string CommitChanges(string commitMassage)
     {
-        if (_branchName == null)
-        {
-            return "";
-        }
+        // if (_branchName == null)
+        // {
+        //     return "";
+        // }
         
         var script =
             "@echo off\n" +
-            @"git add --all" + "\n" +
-            @"git commit -m " + $"\"{commitMassage}\"\n";
+            @"""C:\Program Files\Git\bin\git.exe"" add --all" + "\n" +
+            @"""C:\Program Files\Git\bin\git.exe"" commit -m " + $"\"{commitMassage}\"\n";
         _commitChangesEditor.WriteFile(script);
         _commitChangesScript.Run();
-        return _branchName;
+        // return _branchName;
+        return "hhh";
     }
 
     public void CheckoutMaster()
