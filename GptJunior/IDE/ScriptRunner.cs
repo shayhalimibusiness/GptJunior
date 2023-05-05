@@ -20,7 +20,6 @@ public class ScriptRunner : IScriptRunner
     {
         try
         {
-            var test = $"/C \"{Path}\"";
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -38,8 +37,6 @@ public class ScriptRunner : IScriptRunner
             var output = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
 
-            Console.WriteLine(output);
-            
             return output;
         }
         catch (Exception ex)

@@ -152,7 +152,7 @@ public class GptJunior : IGptJunior
         {
             _ide.Write(codeFile.FileName, codeFile.FileContent);            
         }
-        
+
         Console.WriteLine("Finished Developing");
         
         for (var i = 0; i < 3; i++)
