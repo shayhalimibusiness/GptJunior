@@ -13,6 +13,8 @@ ide.Write("MyTest", ";");
 
 gitMgr.CommitChanges("Initial Commit.");
 
+gitMgr.CheckoutMaster();
+
 
 Console.WriteLine("Done and Done");
 

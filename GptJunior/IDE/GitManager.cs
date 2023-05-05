@@ -4,6 +4,7 @@ public interface IGitManager
 {
     void CreateBranch(string name);
     string CommitChanges(string commitMassage);
+    void CheckoutMaster();
 }
 
 public class GitManager : IGitManager
@@ -46,12 +47,20 @@ public class GitManager : IGitManager
         
         var script =
             "@echo off\n" +
-            @"""C:\Program Files\Git\bin\git.exe"" add --all" + "\n" +
-            @"""C:\Program Files\Git\bin\git.exe"" commit -m " + $"\"{commitMassage}\"\n" +
-            @"""C:\Program Files\Git\bin\git.exe"" checkout master";
+            @"git add --all" + "\n" +
+            @"git commit -m " + $"\"{commitMassage}\"\n";
         _commitChangesEditor.WriteFile(script);
         _commitChangesScript.Run();
         return _branchName;
+    }
+
+    public void CheckoutMaster()
+    {
+        const string script =
+            "@echo off\n" +
+            @"git checkout master";
+        _commitChangesEditor.WriteFile(script);
+        _commitChangesScript.Run();
     }
 }
 
