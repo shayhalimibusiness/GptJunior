@@ -47,6 +47,7 @@ public class GitManager : IGitManager
         
         var script =
             "@echo off\n" +
+            "pwd\n" +
             @"git add --all" + "\n" +
             @"git commit -m " + $"\"{commitMassage}\"\n";
         _commitChangesEditor.WriteFile(script);
