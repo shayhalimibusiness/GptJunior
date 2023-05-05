@@ -20,6 +20,7 @@ public class ScriptRunner : IScriptRunner
     {
         try
         {
+            var test = $"/C \"{Path}\"";
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo
