@@ -38,6 +38,8 @@ public class ScriptRunner : IScriptRunner
             var output = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
 
+            Console.WriteLine(output);
+            
             return output;
         }
         catch (Exception ex)
