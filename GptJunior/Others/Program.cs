@@ -6,10 +6,10 @@ using GptJunior.IDE;
 using GptJunior.Modules;
 
 var gitMgr = GitManagersFactory.CreateGitManager();
-// gitMgr.CreateBranch("Test_Branch");
-//
-// var ide = IdesFactory.CreateIde();
-// ide.Write("MyTest", ";");
+gitMgr.CreateBranch("Test_Branch2");
+
+var ide = IdesFactory.CreateIde();
+ide.Write("MyTest", ";");
 
 gitMgr.CommitChanges("Initial Commit.");
 
