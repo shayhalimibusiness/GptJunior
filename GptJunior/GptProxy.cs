@@ -18,7 +18,7 @@ public class GptProxy : IGptProxy
     public GptProxy(List<ChatPrompt> chatPrompts)
     {
         // ReSharper disable StringLiteralTypo
-        _api = new OpenAIClient("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");
+        _api = new OpenAIClient("");
         var chatRequest = new ChatRequest(chatPrompts);
         _api.ChatEndpoint.GetCompletionAsync(chatRequest).Wait();
     }
