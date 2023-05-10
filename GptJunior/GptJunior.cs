@@ -145,12 +145,14 @@ public class GptJunior : IGptJunior
         _gitManager.CreateBranch("project_" + devAnswer.Name);
         foreach (var fileDto in devAnswer.Implementation)
         {
-            _ide.Write(fileDto.FileName, fileDto.FileContent);            
+            var code = await Helpers.FormatCSharpCodeAsync(fileDto.FileContent);
+            _ide.Write(fileDto.FileName, code);            
         }
         
-        foreach (var codeFile in devAnswer.Tests)
+        foreach (var fileDto in devAnswer.Tests)
         {
-            _ide.Write(codeFile.FileName, codeFile.FileContent);            
+            var code = await Helpers.FormatCSharpCodeAsync(fileDto.FileContent);
+            _ide.Write(fileDto.FileName, code);            
         }
 
         _gitManager.CommitChanges("Development");
@@ -181,7 +183,8 @@ public class GptJunior : IGptJunior
 
             foreach (var fileDto in fixAnswer.Files)
             {
-                _ide.Write(fileDto.FileName, fileDto.FileContent);
+                var code = await Helpers.FormatCSharpCodeAsync(fileDto.FileContent);
+                _ide.Write(fileDto.FileName, code);
             }
 
             _gitManager.CommitChanges("Fix");

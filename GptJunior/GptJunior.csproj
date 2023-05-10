@@ -9,8 +9,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.6.0-1.final" />
+      <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.6.0-1.final" />
       <PackageReference Include="OpenAI-DotNet" Version="6.6.0" />
       <PackageReference Include="OpenAILib" Version="2.0.0" />
+      <PackageReference Include="pinecone_sdk" Version="1.0.2" />
     </ItemGroup>
 
 </Project>
